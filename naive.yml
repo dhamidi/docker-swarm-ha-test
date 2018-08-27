@@ -1,0 +1,9 @@
+version: '3.7'
+services:
+  http-service:
+    image: slow-starting-service:latest
+    ports:
+      - target: 8080
+        published: 12345
+    deploy:
+      replicas: 2

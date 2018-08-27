@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+  http-service:
+    command: app --delay-max 10 --delay-min 1
+    image: slow-starting-service:latest
+    ports:
+      - target: 8080
+        published: 12345
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+        order: start-first
+        delay: 5s
+    healthcheck:
+      test: ["CMD", "app", "--check"]
+      interval: 10s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
